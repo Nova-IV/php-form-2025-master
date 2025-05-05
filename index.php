@@ -25,16 +25,25 @@
             <span aria-hidden="true">📣</span>&nbsp;
             Vos informations
         </h2>
-        <ul>  
-            <?php foreach ($_POST as $key => $value) : ?>
-                <?php if (!empty($value)) : ?>
-                    <li> <?= $key." : ".$value?></li>
-                <?php else : ?>
-                    <li> <?= $key ?> : champs obligatoire </li>
-                <?php endif ?>
-            
-            <?php endforeach; ?>
+        <ul>
+            <?php 
+                $hasEmpty=false;
+
+                foreach ($_POST as $key => $value) {
+                    if (empty($value)) {
+                        $hasEmpty=true;
+                        break;
+                    }
+                }
+            ?>
                 
+            <?php if ($hasEmpty): ?>
+                <p class="warning" ;">Erreur : au moins un champ est vide.</p>
+            <?php else: ?>   
+                <?php foreach ($_POST as $key => $value): ?>
+                    <li><?= $key." : ".htmlspecialchars($value) ?></li>
+                        <?php endforeach; ?>         
+            <?php endif; ?>   
         </ul>
     </section>
         <fieldset>
