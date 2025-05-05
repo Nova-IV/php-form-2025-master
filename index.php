@@ -14,7 +14,7 @@
 <main>
     <figure>
         <figcaption>
-            <h3>😎 The wolrd is your</h3>
+            <h3>😎 The wolrd is yours</h3>
         </figcaption>
         <img 
         src="https://www.pokepedia.fr/images/4/44/Sprite_Pectorius_2_SL.png?20161121055445" 
@@ -25,8 +25,17 @@
             <span aria-hidden="true">📣</span>&nbsp;
             Vos informations
         </h2>
-        <ul>
-                </ul>
+        <ul>  
+            <?php foreach ($_POST as $key => $value) : ?>
+                <?php if (!empty($value)) : ?>
+                    <li> <?= $key." : ".$value?></li>
+                <?php else : ?>
+                    <li> <?= $key ?> : champs obligatoire </li>
+                <?php endif ?>
+            
+            <?php endforeach; ?>
+                
+        </ul>
     </section>
         <fieldset>
             <legend>inscription</legend>
@@ -58,7 +67,17 @@
         </form>
 </fieldset>
 <pre>
-
+<?php
+    print_r($_POST);
+    if (isset($_POST['numero'])) {
+        echo "<h2>Merci pour votre inscription !</h2>";
+        echo "<p>Numéro de série : " . htmlspecialchars($_POST['numero']) . "</p>";
+        echo "<p>Date d'anniversaire : " . htmlspecialchars($_POST['date']) . "</p>";
+        echo "<p>Pays de naissance : " . htmlspecialchars($_POST['pays']) . "</p>";
+    } else {
+        echo "<h2>Veuillez remplir le formulaire ci-dessus.</h2>";
+    }
+?>
 </pre>
     
     
